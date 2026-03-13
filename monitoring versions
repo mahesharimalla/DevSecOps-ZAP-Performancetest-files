@@ -1,0 +1,134 @@
+user2@devsecops-VMware-Virtual-Platform:~$ cat /etc/systemd/system/sonar-exporter.service 
+[Unit]
+Description=SonarQube Prometheus Exporter
+After=network.target
+
+[Service]
+User=user2
+WorkingDirectory=/opt
+ExecStart=/home/user2/sonar-env/bin/python /opt/sonar_exporter.py
+Restart=always
+Environment=SONAR_URL=http://192.168.11.21:9000
+Environment=SONAR_TOKEN=squ_688589d0043713c413d3fd1569261b5a0f68349d
+
+[Install]
+WantedBy=multi-user.target
+
+
+node_exporter --version
+node_exporter, version 1.10.2 (branch: HEAD, revision: 654f19dee6a0c41de78a8d6d870e8c742cdb43b9)
+  build user:       root@b29b4019149a
+  build date:       20251025-20:05:32
+  go version:       go1.25.3
+  platform:         linux/amd64
+  tags:             unknown
+
+
+
+
+
+user2@devsecops-VMware-Virtual-Platform:~$ cat /opt/prometheus/prometheus.yml 
+# my global config
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+           - localhost:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+    - "alert_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ["localhost:9095"]
+       # The label name is added as a label `label_name=<label_value>` to any timeseries scraped from this config.
+        labels:
+          app: "prometheus"
+  - job_name: "jenkins"
+    metrics_path: /prometheus
+    static_configs:
+      - targets: ["192.168.11.18:8080"]
+
+  - job_name: "sonarqube-exporter"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["localhost:9200"]
+
+  - job_name: "openproject"
+    static_configs:
+      - targets: ["192.168.11.18:9300"]
+  - job_name: "node_exporter"
+    static_configs:
+      - targets: ["localhost:9100"]
+
+  - job_name: 'application-monitor'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+          - http://192.168.11.17:5173
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: localhost:9115    
+
+
+
+
+cat /opt/alertmanager/alertmanager.yml
+route:
+  group_by: ['alertname']             # Group by alert name
+  group_wait: 30s                     # Wait time before sending the first notification
+  group_interval: 5m                  # Interval between notifications
+  repeat_interval: 1h                 # Interval to resend notifications
+  receiver: 'email-notifications'     # Default receiver
+
+receivers:
+- name: 'email-notifications'         # Receiver name
+  email_configs:
+  - to: dsecops.2025@gmail.com       # Email recipient
+    from: dsecops.2025@gmail.com              # Email sender
+    smarthost: smtp.gmail.com:587     # SMTP server
+    auth_username: dsecops.2025@gmail.com         # SMTP auth username
+    auth_identity: dsecops.2025@gmail.com         # SMTP auth identity
+    auth_password: "qvye fsut zyeh wtgz"  # SMTP auth password
+    send_resolved: true               # Send notifications for resolved alerts
+
+
+
+#route:
+ # group_by: ['alertname']
+  #group_wait: 30s
+#  group_interval: 5m
+#  repeat_interval: 1h
+#  receiver: 'web.hook'
+#receivers:
+#  - name: 'web.hook'
+#    webhook_configs:
+#      - url: 'http://127.0.0.1:5001/'
+#inhibit_rules:
+#  - source_match:
+#      severity: 'critical'
+#    target_match:
+#      severity: 'warning'
+#    equal: ['alertname', 'dev', 'instance']
