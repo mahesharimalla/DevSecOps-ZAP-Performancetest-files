@@ -1,0 +1,31 @@
+env:
+  contexts:
+    - name: citation-fronetend
+      urls:
+        - http://192.168.11.18:8001
+
+  parameters:
+    failOnError: false
+    progressToStdout: true
+
+jobs:
+  - type: spider
+    parameters:
+      url: http://192.168.11.18:8001
+      maxDuration: 5
+
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 2
+
+  - type: outputSummary
+    parameters:
+      format: Long
+      summaryFile: /zap/wrk/zap_out.json
+
+  - type: report
+    parameters:
+      reportDir: /zap/wrk/
+      reportFile: zap-report.html
+      reportTitle: ZAP DAST Report
+      template: traditional-html
