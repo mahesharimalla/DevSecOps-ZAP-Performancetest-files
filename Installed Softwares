@@ -1,0 +1,148 @@
+user2@devsecops-VMware-Virtual-Platform:~$ sudo gitlab-rake gitlab:env:info
+
+System information
+System:		Ubuntu 24.04
+Current User:	git
+Using RVM:	no
+Ruby Version:	3.2.8
+Gem Version:	3.7.1
+Bundler Version:2.7.1
+Rake Version:	13.0.6
+Redis Version:	7.2.10
+Sidekiq Version:7.3.9
+Go Version:	unknown
+
+GitLab information
+Version:	18.4.1
+Revision:	e88a8d1d1c2
+Directory:	/opt/gitlab/embedded/service/gitlab-rails
+DB Adapter:	PostgreSQL
+DB Version:	16.10
+URL:		http://192.168.11.20:8000
+HTTP Clone URL:	http://192.168.11.20:8000/some-group/some-project.git
+SSH Clone URL:	git@192.168.11.20:some-group/some-project.git
+Using LDAP:	yes
+Using Omniauth:	yes
+Omniauth Providers: 
+
+GitLab Shell
+Version:	14.45.2
+Repository storages:
+- default: 	unix:/var/opt/gitlab/gitaly/gitaly.socket
+GitLab Shell path:		/opt/gitlab/embedded/service/gitlab-shell
+
+Gitaly
+- default Address: 	unix:/var/opt/gitlab/gitaly/gitaly.socket
+- default Version: 	18.4.1
+- default Git Version: 	2.50.1     
+
+
+
+user2@devsecops-VMware-Virtual-Platform:~$ prometheus --version 2>/dev/null || /usr/local/bin/prometheus --version
+Please ask your administrator.
+bash: /usr/local/bin/prometheus: No such file or directory
+user2@devsecops-VMware-Virtual-Platform:~$ grafana-server -v
+Version 12.1.0 (commit: ccd7b6ce7ea6184b8c7eb1de044174147dd9a648, branch: HEAD)
+user2@devsecops-VMware-Virtual-Platform:~$ node_exporter --version
+node_exporter, version 1.10.2 (branch: HEAD, revision: 654f19dee6a0c41de78a8d6d870e8c742cdb43b9)
+  build user:       root@b29b4019149a
+  build date:       20251025-20:05:32
+  go version:       go1.25.3
+  platform:         linux/amd64
+  tags:             unknown
+user2@devsecops-VMware-Virtual-Platform:~$ blackbox_exporter --version
+blackbox_exporter: command not found
+user2@devsecops-VMware-Virtual-Platform:~$ /opt/blackbox/blackbox_exporter --version
+blackbox_exporter, version 0.28.0 (branch: HEAD, revision: 5a059bee8d8ffa4e75947c5055fb0abeefc582e6)
+  build user:       root@967d444a1ba3
+  build date:       20251206-13:23:49
+  go version:       go1.25.5
+  platform:         linux/amd64
+  tags:             unknown
+user2@devsecops-VMware-Virtual-Platform:~$ sonarqube_exporter --version
+sonarqube_exporter: command not found
+user2@devsecops-VMware-Virtual-Platform:~$ /usr/local/bin/sonarqube_exporter --version
+bash: /usr/local/bin/sonarqube_exporter: No such file or directory
+user2@devsecops-VMware-Virtual-Platform:~$ sonar.sh status
+sonar.sh: command not found
+user2@devsecops-VMware-Virtual-Platform:~$ curl http://localhost:9000/api/server/version
+curl: (7) Failed to connect to localhost port 9000 after 0 ms: Couldn't connect to server
+user2@devsecops-VMware-Virtual-Platform:~$ dependency-check --version
+dependency-check: command not found
+user2@devsecops-VMware-Virtual-Platform:~$ dependency-check.sh --version
+dependency-check.sh: command not found
+user2@devsecops-VMware-Virtual-Platform:~$ trufflehog --version
+trufflehog 3.63.7
+user2@devsecops-VMware-Virtual-Platform:~$ semgrep --version
+1.150.0
+
+⏫ A new version of Semgrep is available. See https://semgrep.dev/docs/upgrading
+user2@devsecops-VMware-Virtual-Platform:~$ zap.sh -version
+Command 'zap.sh' not found, did you mean:
+  command 'gap.sh' from deb wims (2:4.27a+dfsg1-2)
+Try: apt install <deb name>
+user2@devsecops-VMware-Virtual-Platform:~$ zaproxy -version
+Command 'zaproxy' not found, but can be installed with:
+snap install zaproxy
+Please ask your administrator.
+user2@devsecops-VMware-Virtual-Platform:~$ jmeter --version
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+WARN StatusConsoleListener The use of package scanning to locate plugins is deprecated and will be removed in a future release
+    _    ____   _    ____ _   _ _____       _ __  __ _____ _____ _____ ____
+   / \  |  _ \ / \  / ___| | | | ____|     | |  \/  | ____|_   _| ____|  _ \
+  / _ \ | |_) / _ \| |   | |_| |  _|    _  | | |\/| |  _|   | | |  _| | |_) |
+ / ___ \|  __/ ___ \ |___|  _  | |___  | |_| | |  | | |___  | | | |___|  _ <
+/_/   \_\_| /_/   \_\____|_| |_|_____|  \___/|_|  |_|_____| |_| |_____|_| \_\ 5.6.3
+
+Copyright (c) 1999-2024 The Apache Software Foundation
+
+user2@devsecops-VMware-Virtual-Platform:~$ java -version
+openjdk version "21.0.10" 2026-01-20
+OpenJDK Runtime Environment (build 21.0.10+7-Ubuntu-124.04)
+OpenJDK 64-Bit Server VM (build 21.0.10+7-Ubuntu-124.04, mixed mode, sharing)
+user2@devsecops-VMware-Virtual-Platform:~$ nmap --version
+Nmap version 7.94SVN ( https://nmap.org )
+Platform: x86_64-pc-linux-gnu
+Compiled with: liblua-5.4.6 openssl-3.0.13 libssh2-1.11.0 libz-1.3 libpcre2-10.42 libpcap-1.10.4 nmap-libdnet-1.12 ipv6
+Compiled without:
+Available nsock engines: epoll poll select
+user2@devsecops-VMware-Virtual-Platform:~$ nginx -v
+Command 'nginx' not found, but can be installed with:
+apt install nginx
+Please ask your administrator.
+user2@devsecops-VMware-Virtual-Platform:~$ psql --version
+psql (PostgreSQL) 16.13 (Ubuntu 16.13-0ubuntu0.24.04.1)
+user2@devsecops-VMware-Virtual-Platform:~$ postgres --version
+Command 'postgres' not found, did you mean:
+  command 'postgrey' from deb postgrey (1.37-2)
+Try: apt install <deb name>
+user2@devsecops-VMware-Virtual-Platform:~$ /opt/nexus/bin/nexus -v
+bash: /opt/nexus/bin/nexus: No such file or directory
+user2@devsecops-VMware-Virtual-Platform:~$ curl http://localhost:8081
+curl: (7) Failed to connect to localhost port 8081 after 0 ms: Couldn't connect to server
+user2@devsecops-VMware-Virtual-Platform:~$ sudo openproject run rake openproject:version
+rake aborted!
+Don't know how to build task 'openproject:version' (See the list of available tasks with `rake --tasks`)
+Did you mean?  openproject:cron:schedule
+/opt/openproject/vendor/bundle/ruby/3.4.0/gems/rake-13.3.0/exe/rake:27:in '<top (required)>'
+/opt/openproject/bin/bundle:105:in 'Kernel#load'
+/opt/openproject/bin/bundle:105:in '<main>'
+(See full trace by running task with --trace)
+
+
+
+
+
+
+user2@devsecops-VMware-Virtual-Platform:~$ which git gitlab prometheus grafana-server node_exporter blackbox_exporter semgrep trufflehog zap.sh jmeter java nmap nginx psql
+/usr/bin/git
+/usr/sbin/grafana-server
+/usr/local/bin/node_exporter
+/home/user2/.local/bin/semgrep
+/usr/local/bin/trufflehog
+/opt/jmeter/bin/jmeter
+/usr/bin/java
+/usr/bin/nmap
+/usr/bin/psql
